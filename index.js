@@ -56,7 +56,7 @@ app.use(express.json()); // Allows your backend to read JSON bodies
 
 // Basic test route
 app.get('/', (req, res) => {
-  res.send('Hello from your backend server!');
+  res.send('Hello from your backend server! Woohoo!');
 });
 
 app.listen(PORT, () => {
