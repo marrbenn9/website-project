@@ -1,11 +1,74 @@
-fetch('/users')
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById('userList');
-    data.forEach(user => {
-      const item = document.createElement('li');
-      item.textContent = `${user.name} (${user.email})`;
-      list.appendChild(item);
-    });
-  })
-  .catch(err => console.error('Error fetching users:', err));
+attachNav()
+
+
+// creating user greeting //
+
+let ux = sessionStorage.getItem('currentUser')
+let greeting = document.createElement('h3')
+greeting.innerHTML = `Welcome back, ${ux}! <br> <h4> Put song details then press "Put Some Chords " 
+</h4>`
+
+document.body.appendChild(greeting)
+
+
+
+// creating containers for current lyrics and chords
+
+let currentChordContainers = []
+let currentLyrics = []
+let currentTitle = ""
+
+// create a textarea for the title
+
+let t3 = document.createElement('textarea')
+t3.className = 'title-textarea'
+t3.rows = '1'
+t3.cols = '70'
+t3.placeholder = 'Put Song Title Here'
+
+document.body.appendChild(t3)
+
+
+
+// create a button to click to add chords
+
+let d1 = document.createElement('div')
+let b1 = document.createElement('button')
+b1.className = 'btn-1'
+b1.textContent = "Put some chords"
+b1.onclick = () => edit()
+d1.appendChild(b1)
+document.body.appendChild(d1)
+
+// creating the textbox
+
+let t1 = document.createElement('textarea')
+t1.className = 'lyrics-textarea'
+t1.placeholder = 'Paste lyrics here'
+t1.rows = '7'
+t1.cols = '75'
+document.body.appendChild(t1)
+
+
+// creating the button to display the edited results and save the card??
+let d2 = document.createElement('div')
+let b2 = document.createElement('button')
+b2.className = 'btn-2'
+let b3 = document.createElement('button')
+b3.className = 'btn-3'
+
+b2.textContent = 'Save Changes'
+b2.onclick = () => save()
+
+b3.textContent = 'Clear all fields'
+b3.onclick = () => clearFields()
+
+
+d2.appendChild(b2)
+d2.appendChild(b3)
+document.body.appendChild(d2)
+
+
+
+
+

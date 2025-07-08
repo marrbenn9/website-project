@@ -1,64 +1,119 @@
-const { Client } = require('pg');
 
-const client = new Client({
-  host: 'dpg-d1htccbipnbc73fml8ag-a.oregon-postgres.render.com',     // your database hostname
-  port: 5432,   // usually stays 5432
-  user: 'website_db_u8wx_user',     // your database username
-  password: 'irmhgdOFA476cjCe9XVReFh0yZrIotqK', // your database password
-  database: 'website_db_u8wx', // your database name
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-client.connect()
-  .then(() => console.log('✅ Connected to PostgreSQL database'))
-  .catch(err => console.error('❌ Connection error:', err.stack));
-
-
-client.query(`
-  CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE
-  );
-`)
-.then(() => console.log('✅ Table created (or already exists)'))
-.catch(err => console.error('❌ Error creating table:', err));
-
-
-client.query(`
-  INSERT INTO users (name, email)
-  VALUES ('Alice Johnson', 'alice@example.com')
-  ON CONFLICT (email) DO NOTHING;
-`)
-.then(() => console.log('✅ Sample user inserted'))
-.catch(err => console.error('❌ Error inserting user:', err));
-
-
-client.query('SELECT * FROM users')
-  .then(result => {
-    console.log('📦 All users from the database:');
-    console.table(result.rows);
-  })
-  .catch(err => console.error('❌ Error fetching users:', err));
-
-
-
-
-
-
+const client = require('./db'); // <-- import the db connection
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.json()); // Allows your backend to read JSON bodies
+const { validate } = require('./db')
+const { enterData } = require('./db')
+const { updateData } = require('./db')
+const { deleteRow } = require('./db')
+const { viewSelectedColumns } = require('./db')
 
-// Basic test route
+
+app.use(express.json());
+
+// post routes
+
+app.post('/validate', async (req, res) => {
+  const data = req.body.data
+  const table = req.body.table
+  const column = req.body.column
+  const isValid = await validate(data, table, column)
+  res.json({success: isValid})
+})
+
+
+app.post('/enterData', async (req, res) => {
+  const data = req.body.data
+  const table = req.body.table
+  const column = req.body.column
+  const status = await enterData(data, table, column)
+  res.json({success: status})
+})
+
+app.post('/updateData', async (req, res) => {
+  const data = req.body.data
+  const table = req.body.table
+  const column = req.body.column
+  const key = req.body.key
+  const value = req.body.value
+  const status = await updateData(data, table, column, key, value)
+  res.json({success: status})
+})
+
+
+app.post('/viewSelectedColumns', async (req, res) => {
+  const data = req.body.data
+  const table = req.body.table
+  const column = req.body.column
+  const isValid = await viewSelectedColumns(data, table, column) // * ONLY COLUMN SHOULD BE ARRAY HERE *
+  res.json({success: isValid})
+})
+
+
+app.post('/deleteRow', async (req, res) => {
+  const data = req.body.data
+  const table = req.body.table
+  const column = req.body.column
+  const isValid = await deleteRow(data, table, column) 
+  res.json({success: isValid})
+})
+
+
+
+
+// ✅ Serve static files first
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Optional root route
 app.get('/', (req, res) => {
-  res.send('Hello from your backend server! Woohoo!');
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
+
+// ✅ Route for /edit
+app.get('/edit', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'edit.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
+app.get('/createacct', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'createacct.html'));
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+app.get('/app', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'app.html'));
+});
+
+
+app.get('/menu', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'menu.html'));
+});
+
+
+app.get('/song_catalog', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'song_catalog.html'));
+});
+
+
+app.get('/songs/:title', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'song_content.html'));
+});
+
+
+app.get('/ccbcAdmin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+
+
