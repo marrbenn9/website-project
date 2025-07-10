@@ -17,6 +17,7 @@ document.body.appendChild(greeting)
 let currentChordContainers = []
 let currentLyrics = []
 let currentTitle = ""
+let currentArtist = ""
 
 // create a textarea for the title
 
@@ -26,7 +27,19 @@ t3.rows = '1'
 t3.cols = '70'
 t3.placeholder = 'Put Song Title Here'
 
+
+let j3 = document.createElement('div')
+j3.style.marginTop = '15px'
+j3.style.marginBottom = '15px'
+let j4 = document.createElement('input')
+j4.placeholder = 'Performed by '
+j4.size = '40'
+j4.className = 'artist-input'
+
+j3.appendChild(j4)
+
 document.body.appendChild(t3)
+document.body.appendChild(j3)
 
 
 
@@ -35,7 +48,7 @@ document.body.appendChild(t3)
 let d1 = document.createElement('div')
 let b1 = document.createElement('button')
 b1.className = 'btn-1'
-b1.textContent = "Put some chords"
+b1.textContent = "Put Some Chords"
 b1.onclick = () => edit()
 d1.appendChild(b1)
 document.body.appendChild(d1)
@@ -45,6 +58,7 @@ document.body.appendChild(d1)
 let t1 = document.createElement('textarea')
 t1.className = 'lyrics-textarea'
 t1.placeholder = 'Paste lyrics here'
+t1.style.marginTop = '15px'
 t1.rows = '7'
 t1.cols = '75'
 document.body.appendChild(t1)

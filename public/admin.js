@@ -31,6 +31,44 @@ a2.onclick =  async function () {
 }
 
 
+let b = document.createElement('div')
+b.style.marginTop = '20px'
+
+
+let b1 = document.createElement('input')
+b1.placeholder = 'TABLE TO DELETE FROM'
+b1.style.marginRight = '5px'
+
+let b3 = document.createElement('input')
+b3.placeholder = 'WHERE COLUMN'
+b3.style.marginRight = '5px'
+
+let b2 = document.createElement('input')
+b2.placeholder = 'ROW TO BE DELETED'
+b2.style.marginRight = '5px'
+
+
+let b4 = document.createElement('button')
+b4.textContent = 'DELETE DATA'
+b4.onclick = async function () {
+    if (b1.value !== '' && b2.value !== '' && b3.value !== ''){
+        let n = await dbfunc('/deleteRow', [ b2.value, b1.value, b3.value ])
+        if (n === true){
+            errorMessage('Data successfully deleted!')
+        }
+    }
+
+    b1.value = ''
+    b2.value = ''
+    b3.value = ''
+    
+}
+
+
 a.append(a1, a2)
+b.append(b1, b3, b2, b4)
 
 document.body.appendChild(a)
+document.body.appendChild(b)
+
+

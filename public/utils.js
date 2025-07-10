@@ -15,9 +15,9 @@ class Song {
   }
 
   async upload() {
-  const data = [this.lyrics, this.chords, this.originalKey, this.title, this.contributor];
+  const data = [this.lyrics, this.chords, this.originalKey, this.title, this.contributor, this.artist];
   const table = 'songs';
-  const columns = ['lyrics', 'chords', 'originalKey', 'title', 'contributor'];
+  const columns = ['lyrics', 'chords', 'originalKey', 'title', 'contributor', 'artist'];
 
   let x = await dbfunc('/enterData', [data, table, columns]);
 }
@@ -238,6 +238,8 @@ function edit(){
   let w1 = document.createElement('h2')
   w1.textContent = document.querySelector('.title-textarea').value
   currentTitle = document.querySelector('.title-textarea').value
+  currentArtist = document.querySelector('.artist-input').value
+
   c1.appendChild(w1)
 
   let w2 = document.createElement('div')
@@ -288,7 +290,7 @@ function edit(){
 
   }
     
-  let ra = ['.title-textarea', '.btn-1', '.lyrics-textarea', '.btn-3']
+  let ra = ['.title-textarea', '.btn-1', '.lyrics-textarea', '.btn-3', '.artist-input']
   for (var i=0; i<ra.length; i++){
     let n = document.querySelector(ra[i])
     n.remove()
@@ -312,6 +314,8 @@ function save(){
   let song = new Song(currentTitle)
   song.lyrics = currentLyrics
   song.contributor = cu
+  song.artist = currentArtist
+  currentArtist = ""
 
   let k = document.querySelector('.key-textarea')
   song.originalKey = k.value
@@ -334,7 +338,10 @@ function save(){
 
 
 function redirect(path){
-  window.location.href = path
+  if (sessionStorage.getItem('currentUser') && sessionStorage.getItem('currentUser') !== ''){
+    window.location.href = path
+  }
+  
 }
 
 

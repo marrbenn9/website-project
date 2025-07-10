@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     song.chords = songData.chords;
     song.originalKey = songData.originalKey || songData.originalkey;
     song.contributor = songData.contributor;
+    song.artist = songData.artist
 
     createCard(song);  // now works safely
   } else {
