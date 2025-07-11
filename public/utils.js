@@ -155,7 +155,7 @@ function createCard(song){
   el_list.push(title)
 
   let artist = document.createElement('h4')
-  artist.textContent = song.artist || 'No Artist Specified'
+  artist.textContent = song.artist ? `by ${song.artist}` : 'No Artist Specified'
   
   if (song.contributor === sessionStorage.getItem('currentUser')){
     artist.contentEditable = true
