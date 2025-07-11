@@ -98,6 +98,9 @@ const updateData = async (data, table, column, key, value) => {
 
 
 
+
+
+
 async function viewTable(tableName) {
   try {
     const res = await client.query(`SELECT * FROM ${tableName}`);

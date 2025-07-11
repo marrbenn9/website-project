@@ -15,7 +15,7 @@ async function generateOptions (){
         let li = document.createElement('li')
         let anc = document.createElement('a')
         anc.className = `a${i}`
-        anc.textContent = b1[i].title
+        anc.textContent = b1[i].title || 'Untitled'
         anc.href = `/songs/${encodeURIComponent(b1[i].title)}`;
 
         li.appendChild(anc)

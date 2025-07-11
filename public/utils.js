@@ -114,6 +114,8 @@ function clearFields (){
 
 function createCard(song){
 
+  let el_list = []
+
   // creating current chordlist
   let chordList = []
 
@@ -126,6 +128,11 @@ function createCard(song){
   songCard.style.fontFamily = 'monospace'
   songCard.style.fontSize = '15px'
 
+  // edit button
+
+  // attaching the command
+  
+
 
   // creating song details div
   let sd = document.createElement('div')
@@ -134,19 +141,41 @@ function createCard(song){
   
   // attaching song title and details
   let title = document.createElement('h2')
-  title.textContent = song.title
+  title.textContent = song.title || 'Untitled'
+  
+  if (song.contributor === sessionStorage.getItem('currentUser')){
+    title.contentEditable = true
+    title.onblur = async function (){
+      let oldTitle = song.title
+      song.title = title.textContent
+      let s = await dbfunc('/updateData', [song.title, 'songs', 'title', 'title', oldTitle])
+    }
+  }
+
+  el_list.push(title)
 
   let artist = document.createElement('h4')
-  if (song.artist){
-    artist.textContent = `by ${song.artist}`
+  artist.textContent = song.artist || 'No Artist Specified'
+  
+  if (song.contributor === sessionStorage.getItem('currentUser')){
+    artist.contentEditable = true
+    artist.onblur = async function (){
+      song.artist = artist.textContent
+      let s = await dbfunc('/updateData', [song.artist, 'songs', 'artist', 'title', song.title])
+    }
   }
   
 
+  el_list.push(artist)
+
   let contributor = document.createElement('h5')
   contributor.textContent = `Contributed by : ${song.contributor}`
+  el_list.push(contributor)
+  
 
   sd.append(title, artist, contributor)
-  
+
+
   songCard.appendChild(sd)
 
 
@@ -154,10 +183,12 @@ function createCard(song){
   // creating the element containing key note
   let key = document.createElement('p')
   key.className = 'key-container'
+  key.contentEditable = song.contributor === sessionStorage.getItem('currentUser')
   
   key.innerHTML = `key of <b>${song.originalKey}</b>`
   key.style.marginBottom = '30px'
   key.style.display = 'inline-block'
+  el_list.push(key)
   songCard.appendChild(key)
 
 
@@ -203,16 +234,34 @@ function createCard(song){
   songCard.appendChild(transpose) 
 
   // looping through chords and lyrics
-  for (var i=0; i < song.lyrics.length; i++){
+  for (let i=0; i < song.lyrics.length; i++){
     let l1 = document.createElement('p')
     l1.style.fontWeight = 'bold'
     l1.textContent = song.chords[i]
+    if (song.contributor === sessionStorage.getItem('currentUser')){
+      l1.contentEditable = true
+      l1.onblur = async function (){
+        song.chords[i] = l1.textContent
+        let s = await dbfunc('/updateData', [song.chords, 'songs', 'chords', 'title', song.title])
+      }
+    }
+    el_list.push(l1)
     chordList.push(l1)
 
     let l2 = document.createElement('p')
     l2.textContent = song.lyrics[i]
+    if (song.contributor === sessionStorage.getItem('currentUser')){
+      l2.contentEditable = true
+      l2.onblur = async function (){
+        song.lyrics[i] = l2.textContent
+        let s = await dbfunc('/updateData', [song.lyrics, 'songs', 'lyrics', 'title', song.title])
+      }
+    }
 
-    songCard.appendChild(l1)
+
+    el_list.push(l2)
+
+    songCard.appendChild(l1)  
     songCard.appendChild(l2)
   }
   
@@ -311,7 +360,7 @@ function edit(){
 
 function save(){
   let cu = sessionStorage.getItem('currentUser')
-  let song = new Song(currentTitle)
+  let song = new Song(currentTitle || 'Untitled')
   song.lyrics = currentLyrics
   song.contributor = cu
   song.artist = currentArtist
@@ -499,4 +548,27 @@ async function addUser(name, username, password){
     errorMessage('Please fill out all fields.')
   }
 }
+
+
+
+function makeEditable(list) {
+  list.forEach((el, index) => {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = el.textContent;
+
+    input.onblur = function () {
+      const newEl = document.createElement(el.tagName.toLowerCase());
+      newEl.textContent = input.value;
+      input.replaceWith(newEl);
+      list[index] = newEl; // update reference
+    };
+
+    el.replaceWith(input);
+    list[index] = input;
+    input.focus();
+  });
+}
+
+
 
