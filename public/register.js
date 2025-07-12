@@ -22,7 +22,7 @@ c1.onclick = async function () {
 
     if (rows.length > 0){
         let x = await dbfunc('/deleteRow', [b2.value, 'secrets', 'secret'])
-        redirect('/createacct')
+        redirect('/createacct', 'public')
     }
     else {
         errorMessage('Invalid secret key!')

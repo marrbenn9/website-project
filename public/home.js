@@ -51,7 +51,7 @@ d1.onclick = async function() {
 let d2 = document.createElement('button')
 d2.className = 'create-acct-btn'
 d2.textContent = 'No account? Register Instead'
-d2.onclick = () => redirect('/register')
+d2.onclick = () => redirect('/register', 'public')
 
 
 
