@@ -1,5 +1,19 @@
 attachNav()
 
+let currentSong
+
+
+let b1 = document.createElement('button')
+b1.textContent = 'SHOW CHORDS ONLY'
+b1.onclick = function (){
+  let a = document.querySelector('.finished-song-div') || ""
+  if (a){
+    a.remove()
+  }
+  createCard(currentSong, 'short')
+}
+
+document.body.appendChild(b1)
 
 
 
@@ -18,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     song.originalKey = songData.originalKey || songData.originalkey;
     song.contributor = songData.contributor;
     song.artist = songData.artist
+
+    currentSong = song
 
     createCard(song);  // now works safely
   } else {

@@ -105,6 +105,14 @@ class NavBar {
 
 // FUNCTIONS //
 
+function clean(input) {
+  return input.trim().replace(/\s+/g, ' ');
+}
+
+function countWords(input) {
+  return input.split(/\s+/)
+}
+
 function clearFields (){
   document.querySelector('.title-textarea').value = ""
   document.querySelector('.lyrics-textarea').value = ""
@@ -112,7 +120,7 @@ function clearFields (){
 }
 
 
-function createCard(song){
+function createCard(song, mode = 'full'){
 
   let el_list = []
 
@@ -233,36 +241,87 @@ function createCard(song){
   songCard.appendChild(down)
   songCard.appendChild(transpose) 
 
+  let tempHolder = ""
+
+
   // looping through chords and lyrics
   for (let i=0; i < song.lyrics.length; i++){
     let l1 = document.createElement('p')
     l1.style.fontWeight = 'bold'
-    l1.textContent = song.chords[i]
-    if (song.contributor === sessionStorage.getItem('currentUser')){
-      l1.contentEditable = true
-      l1.onblur = async function (){
-        song.chords[i] = l1.textContent
-        let s = await dbfunc('/updateData', [song.chords, 'songs', 'chords', 'title', song.title])
+    if (mode === 'full'){
+      l1.textContent = song.chords[i]
+      if (song.contributor === sessionStorage.getItem('currentUser')){
+        l1.contentEditable = true
+        l1.onblur = async function (){
+          song.chords[i] = l1.textContent
+          let s = await dbfunc('/updateData', [song.chords, 'songs', 'chords', 'title', song.title])
+        }
+      } 
+      chordList.push(l1)
+      songCard.appendChild(l1) 
+
+    }  else {
+        let x = clean(song.chords[i]);
+        
+        if (countWords(x).length < 2) {
+          if (tempHolder === '') {
+            tempHolder = x;
+          } else {
+            l1.textContent = `${tempHolder} ${x}`;
+            chordList.push(l1);
+            songCard.appendChild(l1);
+            tempHolder = '';
+          }
+        } else {
+          if (tempHolder !== ''){
+            let l5 = document.createElement('p')
+            l5.style.fontWeight = 'bold'
+            l5.textContent = tempHolder
+            songCard.appendChild(l5)
+            chordList.push(l5)
+            tempHolder = ''
+          }
+          l1.textContent = x;
+          chordList.push(l1);
+          songCard.appendChild(l1);
+        }
+    }
+
+
+    // show lyrics in full mode, just show songParts if not //
+
+    if (mode === 'full'){
+      let l2 = document.createElement('p')
+      l2.textContent = song.lyrics[i]
+      if (song.contributor === sessionStorage.getItem('currentUser')){
+        l2.contentEditable = true
+        l2.onblur = async function (){
+          song.lyrics[i] = l2.textContent
+          let s = await dbfunc('/updateData', [song.lyrics, 'songs', 'lyrics', 'title', song.title])
+        }
+      }
+
+      songCard.appendChild(l2)
+
+    } else {
+      let songParts = ['verse', 'pre-chorus', 'chorus', 'instrumental', 'bridge', 'coda', 'refrain', 'ending', 'interlude']
+      let s = song.lyrics[i].toLowerCase()
+
+      for (let c = 0; c < songParts.length; c++){
+        if (s.includes(songParts[c])){
+          let l2 = document.createElement('p')
+          l2.textContent = `${songParts[c].toUpperCase()} : `
+          songCard.appendChild(l2)
+          break
+        }
       }
     }
-    el_list.push(l1)
-    chordList.push(l1)
-
-    let l2 = document.createElement('p')
-    l2.textContent = song.lyrics[i]
-    if (song.contributor === sessionStorage.getItem('currentUser')){
-      l2.contentEditable = true
-      l2.onblur = async function (){
-        song.lyrics[i] = l2.textContent
-        let s = await dbfunc('/updateData', [song.lyrics, 'songs', 'lyrics', 'title', song.title])
-      }
-    }
+    
 
 
-    el_list.push(l2)
 
-    songCard.appendChild(l1)  
-    songCard.appendChild(l2)
+     
+    
   }
   
 
@@ -567,6 +626,18 @@ function makeEditable(list) {
     list[index] = input;
     input.focus();
   });
+}
+
+
+function displayChords(song){
+  let mainDiv = document.createElement('div')
+
+
+  let detDiv = document.createElement('div')
+  let title = document.createElement('h3')
+  title.textContent = song.title
+
+
 }
 
 
