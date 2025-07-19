@@ -4,6 +4,10 @@
 let a = document.createElement('div')
 a.className = 'registration-div'
 
+let n = document.createElement('h2')
+n.textContent = 'Account Creation'
+a.appendChild(n)
+
 let b = document.createElement('p')
 b.textContent = 'Name :'
 
@@ -31,7 +35,6 @@ g.type = 'text'
 g.size = '50'
 
 let h = document.createElement('div')
-h.style.marginTop = '30px'
 
 let h1= document.createElement('button')
 h1.textContent = 'CREATE NEW ACCOUNT'
@@ -56,7 +59,6 @@ h1.onclick = async function () {
 
 let h2 = document.createElement('button')
 h2.textContent = 'GO BACK TO LOGIN PAGE'
-h2.style.marginLeft = '15px'
 h2.onclick = function() {
     redirect('/')
 }

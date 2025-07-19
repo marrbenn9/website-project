@@ -362,4 +362,59 @@
 }
 
 
+/* Registration div styling */
+.registration-div {
+  display: flex;
+  justify-self: center;
+  flex-direction: column;
+  gap: 12px;
+  background-color: white;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
 
+/* Headline */
+.registration-div h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Input fields */
+.registration-div input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+/* Paragraph labels */
+.registration-div p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Button container */
+.registration-div div {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.registration-div button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0077cc;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.registration-div button:hover {
+  background-color: #005fa3;
+}
