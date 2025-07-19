@@ -547,12 +547,12 @@ async function login(username, password2){
         }
         else {
             console.log('Wrong Username or Password')
-            return false
+            return '❌ Wrong password.'
         }
     }
     else {
         console.log('Invalid credentials')
-        return false
+        return '❌ Invalid username.'
     }
 
     

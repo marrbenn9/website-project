@@ -41,7 +41,7 @@ d1.onclick = async function() {
         redirect('/menu')
     }
     else {
-        errorMessage('Invalid credentials!')
+        errorMessage(q)
     }
     
     
