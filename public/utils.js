@@ -71,7 +71,7 @@ class NavBar {
     this.nav = document.createElement('nav');
     this.nav.style.display = 'flex';
     this.nav.style.justifyContent = 'space-between';
-    this.nav.style.padding = '1rem 2rem';
+    this.nav.style.padding = '0.5rem 2rem';
     this.nav.style.backgroundColor = '#333';
     this.nav.style.color = 'white';
   }
