@@ -16,20 +16,20 @@ b2.style.marginLeft = '20px'
 let c1 = document.createElement('input')
 c1.className = 'username-input'
 c1.type = 'text'
-c1.style.marginLeft = '19px'
+// c1.style.marginLeft = '19px'
 
 let c2 = document.createElement('input')
 c2.className = 'password-input'
 c2.type = 'password'
-c2.style.marginLeft = '20px'
-c2.style.marginBottom = '20px'
+// c2.style.marginLeft = '20px'
+// c2.style.marginBottom = '20px'
 
 let d1 = document.createElement('button')
 d1.className = 'login-btn'
-d1.style.marginBottom = '20px'
-d1.style.marginLeft = '20px'
+// d1.style.marginBottom = '20px'
+// d1.style.marginLeft = '20px'
 d1.textContent = 'LOG IN'
-d1.style.marginRight = '20px'
+// d1.style.marginRight = '20px'
 d1.onclick = async function() {
     let u = c1.value
     let p = c2.value

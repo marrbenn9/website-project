@@ -589,8 +589,6 @@ function errorMessage(message){
   let b = document.createElement('h4')
   b.innerHTML = `<b> ${message} <b>`
   a.className = 'error-div'
-  a.style.marginTop = '30px'
-  a.style.marginLeft = '20px'
 
   a.appendChild(b)
   document.body.appendChild(a)

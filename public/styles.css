@@ -1,0 +1,76 @@
+
+
+.home-title {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-family: sans-serif;
+}
+
+
+.login-div {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+
+.login-div p {
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.login-div input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.sub-div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.login-btn,
+.create-acct-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.create-acct-btn {
+  background-color: #999;
+}
+
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;       /* Makes it a circle */
+  border: 3px solid #787777;   /* Adds the border */
+  object-fit: cover;        /* Ensures it fills the circle nicely */
+}
+
+.error-div {
+  margin-top: 10px;           /* Reduce space between login-div and error-div */
+  text-align: center;
+  color: rgb(29, 7, 7);
+  font-family: sans-serif;
+}
+
+
+.error-div h4 {
+  margin: 0;
+}
