@@ -7,11 +7,9 @@ a.style.border = '1px solid gray'
 
 let b1 = document.createElement('p')
 b1.textContent = 'USERNAME : '
-b1.style.marginLeft = '20px'
 
 let b2 = document.createElement('p')
 b2.textContent = 'PASSWORD : '
-b2.style.marginLeft = '20px'
 
 let c1 = document.createElement('input')
 c1.className = 'username-input'

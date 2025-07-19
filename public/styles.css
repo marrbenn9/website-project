@@ -10,7 +10,7 @@
 
 .login-div {
   width: 300px;
-  margin: 100px auto;
+  margin: 40px auto;
   padding: 20px;
   border: 1px solid gray;
   border-radius: 8px;
@@ -62,19 +62,6 @@
   border: 3px solid #787777;   /* Adds the border */
   object-fit: cover;        /* Ensures it fills the circle nicely */
 }
-
-.error-div {
-  margin-top: 10px;           /* Reduce space between login-div and error-div */
-  text-align: center;
-  color: rgb(29, 7, 7);
-  font-family: sans-serif;
-}
-
-
-.error-div h4 {
-  margin: 0;
-}
-
 
 
 .menu-div {
@@ -301,15 +288,78 @@
 
 /* Optional: Error message style */
 .error-div {
+  display: flex;
+  justify-content: center;      /* Center horizontally */
+  align-items: center;          /* Center vertically */
+
   background-color: #ffe6e6;
   color: #c00;
-  padding: 10px 15px;
+
+  padding: 10px 20px;
   border: 1px solid #f5c2c2;
   border-radius: 6px;
-  margin-top: 20px;
-  margin-left: 20px;
+
+  margin: 20px auto;
+  height: 50px;
   width: fit-content;
   max-width: 80%;
+
+  line-height: 1;               /* Prevent tall text */
 }
+
+.error-div h4,
+.error-div b {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: #5d5b5b;
+}
+
+
+/* Secret Key Entry Section */
+.secret-div {
+  margin: 60px auto;              /* Top/bottom spacing + horizontal centering */
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;            /* Center text and inline elements inside */
+}
+.secret-div h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.secret-div p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.secret-div input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 70%;
+  margin-bottom: 15px;
+}
+
+.secret-div button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.secret-div button:hover {
+  background-color: #1976d2;
+}
+
 
 
