@@ -75,6 +75,7 @@ class NavBar {
     this.nav.style.backgroundColor = '#333';
     this.nav.style.color = 'white';
   }
+  
 
   addLink(text, href, onClick = null) {
     const link = document.createElement('a');
