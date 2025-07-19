@@ -1,6 +1,10 @@
 attachNav()
 // CREATING THE LIST OF SONGS //
 
+let h1 = document.createElement('h1')
+h1.textContent = 'CCBCMI Song Catalog'
+
+
 let a = document.createElement('div')
 a.className = 'song-catalog-div'
 
@@ -27,5 +31,5 @@ async function generateOptions (){
 
 generateOptions()
 
-a.appendChild(ul)
+a.append(h1, ul)
 document.body.appendChild(a)

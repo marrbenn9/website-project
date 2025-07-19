@@ -14,7 +14,7 @@ a.className = 'admin-div1'
 let a1 = document.createElement('input')
 a1.type = 'text'
 a1.size = '30'
-a1.style.marginLeft = '20px'
+a1.placeholder = 'Custom secret key'
 
 let a2 = document.createElement('button')
 a2.textContent = 'CREATE SECRET KEY'
@@ -32,6 +32,7 @@ a2.onclick =  async function () {
 
 
 let b = document.createElement('div')
+b.className = 'admin-delete'
 b.style.marginTop = '20px'
 
 

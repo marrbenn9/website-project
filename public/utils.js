@@ -80,10 +80,10 @@ class NavBar {
     const link = document.createElement('a');
     link.textContent = text;
     link.href = href;
-    link.style.color = 'white';
-    link.style.textDecoration = 'none';
-    link.style.margin = '0 1rem';
-    link.style.cursor = 'pointer';
+ 
+    // link.style.borderRadius = '6px'
+    link.className = 'navbar-link'
+
 
     if (onClick) {
       link.addEventListener('click', (e) => {
@@ -116,6 +116,7 @@ function countWords(input) {
 function clearFields (){
   document.querySelector('.title-textarea').value = ""
   document.querySelector('.lyrics-textarea').value = ""
+  document.querySelector('.artist-input').value = ''
 
 }
 
