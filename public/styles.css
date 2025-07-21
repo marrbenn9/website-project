@@ -11,7 +11,6 @@ body {
   background-color: #f7f7f7;
   margin: 0;
   width: 100%;
-  overflow-x: hidden;
 }
 
 /* Title */
@@ -393,18 +392,6 @@ body {
   }
 }
 
-/* Sticky video + button */
-#vid-div {
-  flex: 0 0 auto;
-  width: 15rem;;
-  height: 11rem;
-  margin-top: 2rem;
-  margin-right: 2rem;
-  position: sticky;
-  top: 70px;
-  align-self: flex-start;
-
-}
 
 #chords-only-btn {
   font-family: sans-serif;
@@ -418,3 +405,47 @@ body {
   margin-bottom: 10px;
   background-color: #72b9ec;
 }
+
+/* Wrapper */
+.main-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+/* Chords button */
+#chords-only-btn {
+  position: static;
+  font-family: sans-serif;
+  z-index: 1000;
+  background-color: #72b9ec;
+  color: white;
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* Sticky YouTube Video */
+#vid-div {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 1rem; /* Adjust as needed */
+  z-index: 999;
+  width: 100%;
+  max-width: 25rem;  /* or whatever size you want */
+  height: auto;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+}
+
+#vid-div iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 0.5rem;
+}
+

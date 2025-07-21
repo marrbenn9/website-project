@@ -9,43 +9,37 @@ document.body.appendChild(mainDiv);
 // === Layout creation === //
 function createMainLayout() {
   const container = document.createElement('div');
-  container.className = 'main-div';
-  container.style.display = 'flex';
-  container.style.alignItems = 'flex-start'; // aligns top of content and video
+  container.className = 'main-div'; // Styling in CSS
 
   // Content column
   const contentSection = document.createElement('div');
   contentSection.id = 'content-section';
-  contentSection.style.flex = '1';
-  contentSection.style.marginRight = '30px';
 
   // Button
   const chordsOnlyButton = document.createElement('button');
-  chordsOnlyButton.id = 'chords-only-btn'
+  chordsOnlyButton.id = 'chords-only-btn';
   chordsOnlyButton.textContent = 'SHOW CHORDS ONLY';
   chordsOnlyButton.onclick = () => {
     const existingCard = document.querySelector('.finished-song-div');
     if (existingCard) existingCard.remove();
-    if (chordsOnlyButton.textContent === 'SHOW CHORDS ONLY'){
-      chordsOnlyButton.textContent = 'VIEW FULL CONTENT'
+
+    if (chordsOnlyButton.textContent === 'SHOW CHORDS ONLY') {
+      chordsOnlyButton.textContent = 'VIEW FULL CONTENT';
       createCard(currentSong, 'short', contentSection);
     } else {
-      chordsOnlyButton.textContent = 'SHOW CHORDS ONLY'
-      createCard(currentSong, 'full', contentSection)
+      chordsOnlyButton.textContent = 'SHOW CHORDS ONLY';
+      createCard(currentSong, 'full', contentSection);
     }
-    
-    
-    
-    
   };
   contentSection.appendChild(chordsOnlyButton);
 
-  // Video column
+  // Video section (appended below content)
   const videoSection = createVideoSection();
 
-  // Append in order: content left, video right
+  // Append both sections
+  contentSection.appendChild(videoSection); // place video inside scrollable column
   container.appendChild(contentSection);
-  container.appendChild(videoSection);
+
 
   return container;
 }
@@ -54,20 +48,10 @@ function createMainLayout() {
 function createVideoSection() {
   const vidDiv = document.createElement('div');
   vidDiv.id = 'vid-div';
-  vidDiv.style.flex = '0 0 auto';
-  vidDiv.style.marginLeft = '30px';
-  vidDiv.style.width = '640px';
-  vidDiv.style.height = '360px';
 
   const placeholder = document.createElement('p');
   placeholder.textContent = 'Loading video...';
   vidDiv.appendChild(placeholder);
-
-  // OPTIONAL: Make it follow scroll (uncomment to enable sticky video)
-  /*
-  vidDiv.style.position = 'sticky';
-  vidDiv.style.top = '20px';
-  */
 
   return vidDiv;
 }
@@ -109,7 +93,6 @@ async function loadSong() {
     }
   }
 }
-
 
 // === Start === //
 loadSong();
