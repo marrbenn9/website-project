@@ -150,7 +150,6 @@ body {
 .root-nav {
   display: flex;
   flex-wrap: wrap;        /* allows items to wrap on small screens */
-  justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
   overflow-x: auto;
