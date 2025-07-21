@@ -149,29 +149,36 @@ body {
 
 .root-nav {
   display: flex;
-  flex-wrap: wrap;        /* allows items to wrap on small screens */
+  flex-wrap: nowrap;            /* Prevent wrapping */
+  overflow-x: auto;             /* Enable horizontal scrolling on small screens */
+  white-space: nowrap;          /* Prevent text wrapping */
   align-items: center;
   padding: 0.5rem 1rem;
-  overflow-x: auto;
-  position: sticky;
-  top: 5px       /* enables scrolling if it still overflows */
+  gap: 0.5rem;
+  background-color: #333;       /* Optional: for visibility */
+  scrollbar-width: none;        /* Hide scrollbar in Firefox */
 }
 
-/* Navbar link - desktop first */
+/* Hide scrollbar in WebKit browsers */
+.root-nav::-webkit-scrollbar {
+  display: none;
+}
+
 .navbar-link {
+  flex: 0 0 auto;               /* Prevent flex items from shrinking */
   display: inline-block;
   padding: 0.75rem 1.25rem;
-  margin: 0 0.5rem;
   border-radius: 0.375rem;
   text-decoration: none;
   color: white;
   font-size: 1rem;
-  white-space: nowrap;              /* Prevent text wrapping */
+  white-space: nowrap;
+  background-color: #333;
   transition: background-color 0.3s;
 }
 
 .navbar-link:hover {
-  background-color: #555;
+  background-color: #004999;
 }
 
 /* Mobile responsiveness */
