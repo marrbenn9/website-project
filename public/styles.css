@@ -1,6 +1,8 @@
 /* Base font size */
 html {
   font-size: 16px;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -8,6 +10,8 @@ body {
   padding: 1rem;
   background-color: #f7f7f7;
   margin: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Title */
@@ -150,49 +154,42 @@ body {
 /* Root Navigation */
 .root-nav {
   display: flex;
-  flex-wrap: nowrap;           /* Keep items in a row */
-  overflow-x: auto;            /* Enable horizontal scroll if needed */
+  flex-wrap: nowrap;
+  overflow-x: auto;
   white-space: nowrap;
   align-items: center;
-  justify-content: flex-start;
   padding: 0.5rem 1rem;
-  width: 100%;                 /* Ensure full width */
-  background-color: #333;
   gap: 0.5rem;
+  background-color: #333;
+  scrollbar-width: none;
+
+  /* ✅ Nav width fix */
+  width: 100vw;
+  max-width: 100%;
   box-sizing: border-box;
-  scrollbar-width: none;       /* Firefox: hide scrollbar */
 }
 
+/* Hide scrollbar in WebKit browsers */
 .root-nav::-webkit-scrollbar {
-  display: none;               /* WebKit: hide scrollbar */
+  display: none;
 }
 
 .navbar-link {
-  flex: 0 0 auto;              /* Do not shrink */
+  flex: 0 0 auto;
   display: inline-block;
   padding: 0.75rem 1.25rem;
   border-radius: 0.375rem;
   text-decoration: none;
   color: white;
   font-size: 1rem;
-  white-space: nowrap;
   background-color: #333;
   transition: background-color 0.3s;
+  white-space: nowrap;
 }
 
 .navbar-link:hover {
   background-color: #004999;
 }
-
-/* Optional: Responsive refinement if needed */
-@media (max-width: 600px) {
-  .navbar-link {
-    font-size: 0.95rem;
-    padding: 0.75rem 1rem;
-    text-align: center;
-  }
-}
-
 
 /* Forms */
 .title-textarea,
@@ -360,28 +357,36 @@ body {
     width: 100%;
   }
 
-  .registration-div div {
+  .registration-div div,
+  .sub-div {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .sub-div {
-    flex-direction: column;
+  .navbar-link {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    text-align: left;
   }
 }
 
+/* Sticky video + button */
 #vid-div {
   margin-top: 2rem;
   margin-right: 2rem;
   position: sticky;
-  top:70px;       /* how far from the top to "stick" */
+  top: 70px;
   align-self: flex-start;
 }
 
 #chords-only-btn {
-  font-family: sans-serif;              /* Sticks 10px from the top of its scroll container */
-  z-index: 1000;            /* Ensure it appears above other content */
-  background: white;        /* Prevents transparency when scrolling */
+  font-family: sans-serif;
+  position: sticky;
+  top: 65px;
+  z-index: 1000;
+  background: white;
   padding: 10px 16px;
   border: 1px solid #ccc;
   border-radius: 6px;
