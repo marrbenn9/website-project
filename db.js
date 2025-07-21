@@ -54,6 +54,8 @@ client.query(`
     .catch(err => console.error('Error: ', err))
 
 
+
+
 // MY CUSTOM FUNCTIONS //
 
 const validate = async (data, table, column) => {
@@ -90,6 +92,8 @@ const updateData = async (data, table, column, key, value) => {
   try {
     await client.query(`UPDATE ${table} SET ${column} = $1 WHERE ${key} = $2`, [data, value]);
     console.log(`✅ Updated ${table}.${column} to ${data} where ${key} = ${value}`);
+    const res = await validate(value, 'songs', 'title')
+    console.log(res)
     return true
   } catch (err) {
     console.error('❌ Error:', err);

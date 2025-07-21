@@ -74,9 +74,6 @@ app.get('/', (req, res) => {
 
 // ✅ Route for /edit
 app.get('/edit', (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  }
   res.sendFile(path.join(__dirname, 'public', 'edit.html'));
 });
 

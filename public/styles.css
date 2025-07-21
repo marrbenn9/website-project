@@ -153,7 +153,9 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  overflow-x: auto;       /* enables scrolling if it still overflows */
+  overflow-x: auto;
+  position: sticky;
+  top: 5px       /* enables scrolling if it still overflows */
 }
 
 /* Navbar link - desktop first */
@@ -187,7 +189,8 @@ body {
 /* Forms */
 .title-textarea,
 .artist-input,
-.lyrics-textarea {
+.lyrics-textarea,
+.link-input {
   font-size: 1rem;
   padding: 0.625rem;
   border: 0.0625rem solid #ccc;
@@ -357,4 +360,25 @@ body {
   .sub-div {
     flex-direction: column;
   }
+}
+
+#vid-div {
+  margin-top: 2rem;
+  margin-right: 2rem;
+  position: sticky;
+  top:70px;       /* how far from the top to "stick" */
+  align-self: flex-start;
+}
+
+#chords-only-btn {
+  font-family: sans-serif;
+  position: sticky;
+  top: 65px;                /* Sticks 10px from the top of its scroll container */
+  z-index: 1000;            /* Ensure it appears above other content */
+  background: white;        /* Prevents transparency when scrolling */
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  background-color: #72b9ec;
 }

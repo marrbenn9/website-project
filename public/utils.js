@@ -12,14 +12,17 @@ class Song {
     this.currentKey = ''
     this.title = title
     this.contributor = ""
+    this.videoId = ''
   }
 
   async upload() {
-  const data = [this.lyrics, this.chords, this.originalKey, this.title, this.contributor, this.artist];
+  const data = [this.lyrics, this.chords, this.originalKey, this.title, this.contributor, this.artist, this.videoId];
   const table = 'songs';
-  const columns = ['lyrics', 'chords', 'originalKey', 'title', 'contributor', 'artist'];
+  const columns = ['lyrics', 'chords', 'originalKey', 'title', 'contributor', 'artist', 'videoId'];
 
   let x = await dbfunc('/enterData', [data, table, columns]);
+
+  sessionStorage.setItem('currentLink', '')
 }
 
   async showRecord(){
@@ -122,7 +125,7 @@ function clearFields (){
 }
 
 
-function createCard(song, mode = 'full'){
+function createCard(song, mode = 'full', parent = document.body){
 
   let el_list = []
 
@@ -174,16 +177,27 @@ function createCard(song, mode = 'full'){
       let s = await dbfunc('/updateData', [song.artist, 'songs', 'artist', 'title', song.title])
     }
   }
+
+
+  let link = document.createElement('h5')
+  link.textContent = song.videoId || 'No YouTube link Specified'
   
+  if (song.contributor === sessionStorage.getItem('currentUser')){
+    link.contentEditable = true
+    link.onblur = async function (){
+      song.videoId = link.textContent.trim()
+      let s = await dbfunc('/updateData', [song.videoId, 'songs', 'videoid', 'title', song.title])
+    }
+  }
 
   el_list.push(artist)
 
-  let contributor = document.createElement('h5')
+  let contributor = document.createElement('h4')
   contributor.textContent = `Contributed by : ${song.contributor}`
   el_list.push(contributor)
   
 
-  sd.append(title, artist, contributor)
+  sd.append(title, artist, link, contributor)
 
 
   songCard.appendChild(sd)
@@ -328,7 +342,7 @@ function createCard(song, mode = 'full'){
   
 
   // deployment and clearing of fields and irrelevant divs
-  document.body.appendChild(songCard)
+  parent.appendChild(songCard)
   let q = document.querySelector('.song-edit-div')
   if (q){
      q.remove()
@@ -346,6 +360,8 @@ function edit(){
   c1.style.fontFamily = 'monospace'
 
   let w1 = document.createElement('h2')
+  let link = document.querySelector('.link-input').value || 'No link placed'
+  sessionStorage.setItem('currentLink', link)
   w1.textContent = document.querySelector('.title-textarea').value
   currentTitle = document.querySelector('.title-textarea').value
   currentArtist = document.querySelector('.artist-input').value
@@ -426,6 +442,7 @@ function save(){
   song.contributor = cu
   song.artist = currentArtist
   currentArtist = ""
+  song.videoId = sessionStorage.getItem('currentLink')
 
   let k = document.querySelector('.key-textarea')
   song.originalKey = k.value
@@ -640,5 +657,34 @@ function displayChords(song){
 
 }
 
+
+
+function initYTplayer(div_id, video_id, onPlayerReady, onPlayerStateChange){
+  const player = new YT.Player(div_id, {
+    height: '360',
+    width: '640',
+    videoId: video_id,
+    playerVars: {
+      autoplay: 0,
+      controls: 1,
+      rel: 0,
+      start: 0,
+    },
+    events: {
+      onReady: onPlayerReady || function() {},
+      onStateChange: onPlayerStateChange || function() {}
+    }
+  });
+
+}
+
+
+function extractYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+
+  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([\w-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
+}
 
 

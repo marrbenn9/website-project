@@ -1,7 +1,17 @@
-let x = sessionStorage.getItem('testKey') || "session object not found"
 
-let y = document.createElement('h1')
-y.textContent = x
+// main div //
 
-document.body.appendChild(y)
+let mainDiv = document.createElement('div')
+mainDiv.id = 'main-div'
+
+const videoId = 'aIESFjd2ntI'
+
+document.body.appendChild(mainDiv)
+
+function onYouTubeIframeAPIReady(){
+    initYTplayer(mainDiv.id, videoId)
+}
+
+
+
 

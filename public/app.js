@@ -18,6 +18,7 @@ let currentChordContainers = []
 let currentLyrics = []
 let currentTitle = ""
 let currentArtist = ""
+let currentLink = ""
 
 // create a textarea for the title
 
@@ -29,8 +30,6 @@ t3.placeholder = 'Put Song Title Here'
 
 
 let j3 = document.createElement('div')
-j3.style.marginTop = '15px'
-j3.style.marginBottom = '15px'
 let j4 = document.createElement('input')
 j4.placeholder = 'Performed by '
 j4.size = '40'
@@ -38,9 +37,16 @@ j4.className = 'artist-input'
 
 j3.appendChild(j4)
 
-document.body.appendChild(t3)
-document.body.appendChild(j3)
 
+const k1 = document.createElement('div')
+const k2 = document.createElement('input')
+k2.placeholder = 'Paste YouTube link here'
+k2.size = '40'
+k2.className = 'link-input'
+k1.appendChild(k2)
+
+
+document.body.append(t3, j3, k1)
 
 
 // create a button to click to add chords
