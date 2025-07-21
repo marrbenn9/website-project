@@ -145,7 +145,7 @@ function createCard(song, mode = 'full', parent = document.body){
   // creating the card-div
   let songCard = document.createElement('div')
   songCard.className = 'finished-song-div'
-  songCard.style.marginLeft = '30px'
+  songCard.style.padding = '2rem'
   songCard.style.whiteSpace = 'pre'
   songCard.style.fontFamily = 'monospace'
   songCard.style.fontSize = '15px'
