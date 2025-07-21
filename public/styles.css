@@ -147,25 +147,28 @@ body {
   background-color: #357ab7;
 }
 
+/* Root Navigation */
 .root-nav {
   display: flex;
-  flex-wrap: nowrap;            /* Prevent wrapping */
-  overflow-x: auto;             /* Enable horizontal scrolling on small screens */
-  white-space: nowrap;          /* Prevent text wrapping */
+  flex-wrap: nowrap;           /* Keep items in a row */
+  overflow-x: auto;            /* Enable horizontal scroll if needed */
+  white-space: nowrap;
   align-items: center;
+  justify-content: flex-start;
   padding: 0.5rem 1rem;
+  width: 100%;                 /* Ensure full width */
+  background-color: #333;
   gap: 0.5rem;
-  background-color: #333;       /* Optional: for visibility */
-  scrollbar-width: none;        /* Hide scrollbar in Firefox */
+  box-sizing: border-box;
+  scrollbar-width: none;       /* Firefox: hide scrollbar */
 }
 
-/* Hide scrollbar in WebKit browsers */
 .root-nav::-webkit-scrollbar {
-  display: none;
+  display: none;               /* WebKit: hide scrollbar */
 }
 
 .navbar-link {
-  flex: 0 0 auto;               /* Prevent flex items from shrinking */
+  flex: 0 0 auto;              /* Do not shrink */
   display: inline-block;
   padding: 0.75rem 1.25rem;
   border-radius: 0.375rem;
@@ -181,17 +184,16 @@ body {
   background-color: #004999;
 }
 
-/* Mobile responsiveness */
+/* Optional: Responsive refinement if needed */
 @media (max-width: 600px) {
   .navbar-link {
-    display: flex;
-    width: 100%;
-    margin: 0.25rem 0;
-    padding: 0.75rem 1rem;
     font-size: 0.95rem;
-    text-align: left;
+    padding: 0.75rem 1rem;
+    text-align: center;
   }
 }
+
+
 /* Forms */
 .title-textarea,
 .artist-input,
@@ -377,9 +379,7 @@ body {
 }
 
 #chords-only-btn {
-  font-family: sans-serif;
-  position: sticky;
-  top: 65px;                /* Sticks 10px from the top of its scroll container */
+  font-family: sans-serif;              /* Sticks 10px from the top of its scroll container */
   z-index: 1000;            /* Ensure it appears above other content */
   background: white;        /* Prevents transparency when scrolling */
   padding: 10px 16px;
