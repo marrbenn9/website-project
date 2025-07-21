@@ -71,39 +71,48 @@ class Element {
 // Define a reusable class for creating a nav bar
 class NavBar {
   constructor() {
+    this.navWrapper = document.createElement('div');
+    this.navWrapper.className = 'nav-wrapper';
+
+    this.hamburger = document.createElement('div');
+    this.hamburger.className = 'hamburger';
+    this.hamburger.innerHTML = '&#9776;';
+    this.hamburger.addEventListener('click', () => {
+      this.nav.classList.toggle('show');
+    });
+
     this.nav = document.createElement('nav');
-    this.nav.className = 'root-nav'
-    this.nav.style.display = 'flex';
-    this.nav.style.padding = '0.5rem 2rem';
-    this.nav.style.backgroundColor = '#333';
-    this.nav.style.color = 'white';
+    this.nav.className = 'root-nav';
+
+    this.navWrapper.appendChild(this.hamburger);
+    this.navWrapper.appendChild(this.nav);
   }
-  
 
   addLink(text, href, onClick = null) {
-    const link = document.createElement('a');
-    link.textContent = text;
-    link.href = href;
- 
-    // link.style.borderRadius = '6px'
-    link.className = 'navbar-link'
+  const link = document.createElement('a');
+  link.textContent = text;
+  link.href = href;
+  link.className = 'navbar-link';
 
-
+  link.addEventListener('click', (e) => {
     if (onClick) {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        onClick();
-      });
+      e.preventDefault();
+      onClick();
     }
 
-    this.nav.appendChild(link);
-  }
+    // Auto-close on small screens
+    if (window.innerWidth <= 768) {
+      this.nav.classList.remove('show');
+    }
+  });
 
-  deploy(parent = document.body) {
-    parent.prepend(this.nav); // Add at top of page
-  }
+  this.nav.appendChild(link);
 }
 
+  deploy(parent = document.body) {
+    parent.prepend(this.navWrapper);
+  }
+}
 
 
 
@@ -579,21 +588,17 @@ async function login(username, password2){
 
 
 
-function attachNav (){
-
-// Usage
-const navbar = new NavBar();
-navbar.addLink('Home', '/menu');
-navbar.addLink('Find A Song', '/song_catalog')
-navbar.addLink('Upload A Song', '/app')
-navbar.addLink('Sign Out', '#', () => {
-  console.log('Signing out...');
-  // You could clear sessionStorage or redirect here
-  sessionStorage.clear();
-  window.location.href = '/';
-});
-navbar.deploy();
-
+function attachNav() {
+  const navbar = new NavBar();
+  navbar.addLink('Home', '/menu');
+  navbar.addLink('Find A Song', '/song_catalog');
+  navbar.addLink('Upload A Song', '/app');
+  navbar.addLink('Sign Out', '#', () => {
+    console.log('Signing out...');
+    sessionStorage.clear();
+    window.location.href = '/';
+  });
+  navbar.deploy();
 }
 
 
