@@ -1,18 +1,14 @@
 const { Client } = require('pg');
 
 const client = new Client({
-  host: 'dpg-d1htccbipnbc73fml8ag-a.oregon-postgres.render.com',     // your database hostname
-  port: 5432,   // usually stays 5432
-  user: 'website_db_u8wx_user',     // your database username
-  password: 'irmhgdOFA476cjCe9XVReFh0yZrIotqK', // your database password
-  database: 'website_db_u8wx', // your database name
+  connectionString: 'postgresql://neondb_owner:npg_x7v8gciXCRwb@ep-billowing-wind-a1o1hcdv-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require',
   ssl: {
     rejectUnauthorized: false
   }
 });
 
 client.connect()
-  .then(() => console.log('✅ Connected to PostgreSQL database'))
+  .then(() => console.log('✅ Connected to Neon PostgreSQL database'))
   .catch(err => console.error('❌ Connection error:', err.stack));
 
 
