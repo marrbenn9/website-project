@@ -84,8 +84,18 @@ b3.textContent = 'Clear all fields'
 b3.onclick = () => clearFields()
 
 
+const b4 = document.createElement('button')
+b4.textContent = 'OR Import data from Ultimate-Guitar'
+b4.className = 'btn-3'
+b4.style.backgroundColor = 'Grey'
+b4.onclick = () => {
+    redirect('/import')
+}
+
+
 d2.appendChild(b2)
 d2.appendChild(b3)
+d2.appendChild(b4)
 document.body.appendChild(d2)
 
 

@@ -50,6 +50,22 @@ client.query(`
     .catch(err => console.error('Error: ', err))
 
 
+client.query(`
+    CREATE TABLE IF NOT EXISTS ugsongs(
+        id SERIAL PRIMARY KEY,
+        title TEXT,
+        artist TEXT,
+        contributor TEXT,
+        originalKey TEXT,
+        chords TEXT[],
+        lyrics TEXT[]
+
+    );`)
+    .then(() => console.log('✅ SONGS table successfully created or already exists'))
+    .catch(err => console.error('Error: ', err))
+
+
+
 // MY CUSTOM FUNCTIONS //
 
 const validate = async (data, table, column) => {

@@ -3,6 +3,21 @@
 
 // CLASSES //
 
+class UGSong {
+  constructor(title){
+    this.title = title
+    this.lyrics = []
+    this.chords = []
+    this.originalKey = ''
+    this.contributor = ''
+    this.link = ''
+    this.currentKey = ''
+    this.table = 'ugsongs'
+  }
+}
+
+
+
 
 class Song {
   constructor(title){
@@ -329,7 +344,7 @@ function createCard(song, mode = 'full', parent = document.body){
       songCard.appendChild(l2)
 
     } else {
-      let songParts = ['verse', 'pre-chorus', 'chorus', 'instrumental', 'bridge', 'coda', 'refrain', 'ending', 'interlude']
+      let songParts = ['verse', 'pre-chorus', 'chorus', 'instrumental', 'bridge', 'coda', 'refrain', 'ending', 'interlude', 'intro']
       let s = song.lyrics[i].toLowerCase()
 
       for (let c = 0; c < songParts.length; c++){
