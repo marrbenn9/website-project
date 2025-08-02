@@ -430,8 +430,8 @@ body {
 
 /* Sticky YouTube Video */
 #vid-div {
-  position: -webkit-sticky; /* For Safari */
-  position: sticky;
+  /*position: -webkit-sticky; /* For Safari */
+  /*position: sticky;
   top: 1rem; /* Adjust as needed */
   z-index: 999;
   width: 100%;
@@ -449,3 +449,8 @@ body {
   border-radius: 0.5rem;
 }
 
+
+.iGhjU.xXjiq.VcfKs {
+
+  font-weight: bold;
+}
