@@ -116,8 +116,6 @@ b2.onclick = () => {
   }
 };
 
-document.body.appendChild(b2);
-
 
 
 const b3 = document.createElement('button')
@@ -139,7 +137,7 @@ b3.onclick = () => {
 
 
 
-sd1.append(p0, title, artist, link, p1, i1, b1, b2, b3)
+sd1.append(p0, title, artist, link, p1, i1, b1)
 
 mainDiv.appendChild(sd1)
 document.body.appendChild(mainDiv)
