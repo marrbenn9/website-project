@@ -44,7 +44,7 @@ h1.onclick = async function () {
         errorMessage(`Account Created! Name: ${e.value}, Username: ${f.value} <br>
             You will be redirected to login page shortly.`)
         setTimeout(() => {
-            redirect('/')
+            redirect('/', 'public')
         }, 7000)
     }
     else {
@@ -60,7 +60,7 @@ h1.onclick = async function () {
 let h2 = document.createElement('button')
 h2.textContent = 'GO BACK TO LOGIN PAGE'
 h2.onclick = function() {
-    redirect('/')
+    redirect('/', 'public')
 }
 
 h.append(h1, h2)

@@ -50,8 +50,6 @@ client.query(`
     .catch(err => console.error('Error: ', err))
 
 
-
-
 // MY CUSTOM FUNCTIONS //
 
 const validate = async (data, table, column) => {
