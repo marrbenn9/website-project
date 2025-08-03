@@ -127,7 +127,7 @@ app.get('/import', (req, res) => {
 
 app.post('/scrape', async (req, res) => {
   const url = req.body.url;
-  const selector = '.nr2Gp';
+  const selector = '.nr2Gp'; // Adjust if your target element changes
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
@@ -136,8 +136,7 @@ app.post('/scrape', async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
-      // ✅ Use bundled Chromium instead of Chrome
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: ['--no-sandbox', '--disable-setuid-sandbox'], // required for Render
     });
 
     const page = await browser.newPage();
@@ -149,6 +148,8 @@ app.post('/scrape', async (req, res) => {
     );
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
+
+    // Wait for content to render
     await new Promise(resolve => setTimeout(resolve, 3000));
     await page.waitForSelector(selector, { timeout: 10000 });
 
@@ -165,3 +166,6 @@ app.post('/scrape', async (req, res) => {
     res.status(500).json({ error: 'Failed to scrape content' });
   }
 });
+
+
+
