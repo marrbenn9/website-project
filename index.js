@@ -127,28 +127,44 @@ app.get('/import', (req, res) => {
 
 app.post('/scrape', async (req, res) => {
   const url = req.body.url;
-  const selector = '.nr2Gp'; // Adjust if needed
+  const selector = '.nr2Gp'; // Adjust as needed
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
   }
 
   try {
+    // Point Puppeteer to the manually installed Chrome path
+    const chromePath = path.join(
+      __dirname,
+      '.puppeteer-cache',
+      'chrome',
+      'linux-138.0.7204.168',
+      'chrome-linux64',
+      'chrome'
+    );
+
     const browser = await puppeteer.launch({
       headless: 'new',
-      executablePath: puppeteer.executablePath(), // ✅ Puppeteer-managed Chrome
+      executablePath: chromePath,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
     const page = await browser.newPage();
+
+    // Optional: Increase viewport to load dynamic content better
     await page.setViewport({ width: 1280, height: 6000 });
+
     await page.setUserAgent(
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
       '(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
     );
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
+
+    // Let client-side JS render virtualized content
     await new Promise(resolve => setTimeout(resolve, 3000));
+
     await page.waitForSelector(selector, { timeout: 10000 });
 
     const content = await page.$eval(
@@ -164,6 +180,4 @@ app.post('/scrape', async (req, res) => {
     res.status(500).json({ error: 'Failed to scrape content' });
   }
 });
-
-
 
