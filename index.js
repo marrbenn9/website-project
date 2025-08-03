@@ -8,6 +8,7 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const puppeteer = require('puppeteer')
 
+
 const { validate } = require('./db')
 const { enterData } = require('./db')
 const { updateData } = require('./db')
@@ -126,7 +127,7 @@ app.get('/import', (req, res) => {
 
 app.post('/scrape', async (req, res) => {
   const url = req.body.url;
-  const selector = '.nr2Gp'; // Adjust if this changes dynamically
+  const selector = '.nr2Gp'; // Adjust if needed
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
@@ -135,29 +136,21 @@ app.post('/scrape', async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
+      executablePath: puppeteer.executablePath(), // ✅ Puppeteer-managed Chrome
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
     const page = await browser.newPage();
-
-    // ✅ Large viewport to discourage virtualization
     await page.setViewport({ width: 1280, height: 6000 });
-
-    // Set realistic user agent
     await page.setUserAgent(
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
       '(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
     );
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
-
-    // Wait for JS to render the virtualized content
     await new Promise(resolve => setTimeout(resolve, 3000));
-
-    // Wait for the desired selector to appear
     await page.waitForSelector(selector, { timeout: 10000 });
 
-    // Clone full HTML subtree (all nested spans preserved)
     const content = await page.$eval(
       selector,
       el => el.cloneNode(true).innerHTML
@@ -171,5 +164,6 @@ app.post('/scrape', async (req, res) => {
     res.status(500).json({ error: 'Failed to scrape content' });
   }
 });
+
 
 
