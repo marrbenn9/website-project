@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# Install Puppeteer's required Chrome version
+# Set Puppeteer's cache dir manually to a persistent location
+export PUPPETEER_CACHE_DIR="./.puppeteer-cache"
+
 npx puppeteer browsers install chrome
 
-echo "Puppeteer browser installed"
+echo "✅ Puppeteer Chrome installed in $PUPPETEER_CACHE_DIR"
