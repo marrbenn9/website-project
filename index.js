@@ -136,7 +136,7 @@ app.post('/scrape', async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
-      executablePath: puppeteer.executablePath(), // ✅ use Puppeteer's own resolver
+      // ✅ Use bundled Chromium instead of Chrome
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
@@ -165,4 +165,3 @@ app.post('/scrape', async (req, res) => {
     res.status(500).json({ error: 'Failed to scrape content' });
   }
 });
-
