@@ -1,10 +1,12 @@
-const { install } = require('playwright/lib/install');
+const { exec } = require('child_process');
 
-install('chromium')
-  .then(() => {
-    console.log('Chromium installed successfully');
-  })
-  .catch(err => {
-    console.error('Playwright install failed:', err);
+exec('npx playwright install chromium', (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Install error: ${error.message}`);
     process.exit(1);
-  });
+  }
+  if (stderr) {
+    console.error(`Install stderr: ${stderr}`);
+  }
+  console.log(stdout);
+});
