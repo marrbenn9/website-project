@@ -4,9 +4,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
-const axios = require('axios')
-const cheerio = require('cheerio')
-const puppeteer = require('puppeteer')
+const { chromium } = require('playwright')
 
 
 const { validate } = require('./db')
@@ -127,43 +125,49 @@ app.get('/import', (req, res) => {
 
 app.post('/scrape', async (req, res) => {
   const url = req.body.url;
-  const selector = '.nr2Gp'; // Adjust if your target element changes
+  const selector = '.nr2Gp'; // adjust as needed
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
   }
 
+  let browser;
   try {
-    const browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox'], // required for Render
+    browser = await chromium.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
-    const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 6000 });
+    // Create context with user agent
+    const context = await browser.newContext({
+      userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
+                 '(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+      viewport: { width: 1280, height: 6000 }
+    });
 
-    await page.setUserAgent(
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
-      '(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
-    );
+    const page = await context.newPage();
 
+    // Load HTML without waiting for all network requests
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
 
-    // Wait for content to render
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Let JS render the lazy content
+    await page.waitForTimeout(3000);
+
+    // Wait specifically for the target selector
     await page.waitForSelector(selector, { timeout: 10000 });
 
-    const content = await page.$eval(
-      selector,
-      el => el.cloneNode(true).innerHTML
-    );
+    // Extract inner HTML of the element
+    const content = await page.$eval(selector, el => el.cloneNode(true).innerHTML);
 
-    await browser.close();
     res.json({ element: content });
 
   } catch (err) {
     console.error('Scraping error:', err.message || err);
     res.status(500).json({ error: 'Failed to scrape content' });
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
   }
 });
 
