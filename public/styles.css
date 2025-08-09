@@ -378,7 +378,7 @@ body {
   }
   
   #content-section {
-  max-width: 17rem;
+  max-width: 99vw;
   }
 
   .song-details-div {
@@ -389,7 +389,7 @@ body {
   .finished-song-div{
     white-space: pre;
     margin: 1rem 0rem;
-    max-width: 16rem;
+    max-width: 95vw;
     overflow-x: auto;
   }
   
