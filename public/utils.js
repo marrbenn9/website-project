@@ -162,6 +162,7 @@ function createCard(song, mode = 'full', parent = document.body){
   songCard.className = 'finished-song-div'
   songCard.style.fontFamily = 'monospace'
   songCard.style.fontSize = '15px'
+  songCard.style.whiteSpace = 'pre'
 
   // edit button
 

@@ -373,10 +373,6 @@ body {
     padding: 1.5rem;
   }
 
-  body {
-    padding: 0.5rem 0.5rem;
-  }
-  
   #content-section {
   max-width: 99vw;
   }
@@ -387,7 +383,6 @@ body {
 
 
   .finished-song-div{
-    white-space: pre;
     margin: 1rem 0rem;
     max-width: 95vw;
     overflow-x: auto;
