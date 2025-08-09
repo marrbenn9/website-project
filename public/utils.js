@@ -160,8 +160,6 @@ function createCard(song, mode = 'full', parent = document.body){
   // creating the card-div
   let songCard = document.createElement('div')
   songCard.className = 'finished-song-div'
-  songCard.style.padding = '2rem'
-  songCard.style.whiteSpace = 'pre'
   songCard.style.fontFamily = 'monospace'
   songCard.style.fontSize = '15px'
 
@@ -216,8 +214,8 @@ function createCard(song, mode = 'full', parent = document.body){
 
   el_list.push(artist)
 
-  let contributor = document.createElement('h4')
-  contributor.textContent = `Contributed by : ${song.contributor}`
+  let contributor = document.createElement('h5')
+  contributor.textContent = `Posted by : ${song.contributor}`
   el_list.push(contributor)
   
 
@@ -234,7 +232,7 @@ function createCard(song, mode = 'full', parent = document.body){
   key.contentEditable = song.contributor === sessionStorage.getItem('currentUser')
   
   key.innerHTML = `key of <b>${song.originalKey}</b>`
-  key.style.marginBottom = '30px'
+  key.style.marginBottom = '10px'
   key.style.display = 'inline-block'
   el_list.push(key)
   songCard.appendChild(key)
